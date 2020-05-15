@@ -44,7 +44,11 @@ def extract_info(file_1):
 
             p1k = float(count_ones(cut1))
 
-            tp1.append(dcg1 / ideal1)
+            try:
+                tp1.append(dcg1 / ideal1)
+            except ZeroDivisionError:
+                tp1.append(0)
+                print("WARN: Div by zero err for k=" + str(k))
             recall_p1.append(p1k / pf1)
             precision_p1.append(p1k / k)
 
@@ -88,7 +92,7 @@ def compare_and_print(file):
     return avg_p1, recall_p1, precision1
 
 
-e1 = 'embeddings_safe'
+e1 = 'safe_embeddings'
 
 opt = ['O0', 'O1', 'O2', 'O3']
 compilers = ['gcc-7', 'gcc-4.8', 'clang-6.0', 'clang-4.0']

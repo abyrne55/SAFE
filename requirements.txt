@@ -1,4 +1,4 @@
-tensorflow
+tensorflow<=1.15.2
 sklearn
 numpy
 scipy
@@ -6,3 +6,4 @@ matplotlib
 tqdm
 r2pipe
 pyfiglet
+pandas

@@ -45,17 +45,21 @@ class SearchEngineEvaluator:
         n_true_labels = []
         num = min(num, len(ids))
 
-        for i in range(0, num):
-            index = random.randrange(len(ids))
+        for index in range(0, num):
+            index = random.randrange(len(ids)) # Why is this random??
             n_ids.append(ids[index])
             n_true_labels.append(true_labels[index])
-            f_name=true_labels[index].split('/')[2]
-            fi_name=true_labels[index].split('/')[1]
+            #print("INPUT: " + str(true_labels[index]))
+            f_name=true_labels[index].split('/')[3]
+            fi_name=true_labels[index].split('/')[2]
             q = cur.execute("SELECT num FROM count_func WHERE file_name='{}' and function_name='{}'".format(fi_name,f_name))
+            #print("QUERY: SELECT num FROM count_func WHERE file_name='{}' and function_name='{}'".format(fi_name,f_name))
             f = q.fetchone()
+            #print("RESULT: " + str(f))
             if f is not None:
                 num=int(f[0])
             else:
+                print("WARN: count_func query returned 0")
                 num = 0
             self.number_similar[true_labels[index]]=num
 
